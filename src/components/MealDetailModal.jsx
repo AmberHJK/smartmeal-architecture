@@ -57,7 +57,8 @@ const MealDetailModal = ({ meal, goal = 'maintenance', onClose }) => {
         </button>
 
         {/* Content */}
-        <div className="p-6 pt-16 sm:p-8 sm:pt-18">
+        <div className="p-6 pt-14 sm:p-8 sm:pt-16">
+          {/* Category Badge */}
           <span className="absolute top-0 left-0 right-0 z-1 px-6 sm:px-8 py-3 bg-emerald-100 text-emerald-700 text-m font-medium capitalize">
             {meal.category}
           </span>
@@ -67,6 +68,75 @@ const MealDetailModal = ({ meal, goal = 'maintenance', onClose }) => {
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 pr-10 mb-2">
               {meal.name}
             </h2>
+          </div>
+
+          {/* Image + Nutrition */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            {/* Meal Image */}
+            {meal.image && (
+              <div className="w-full h-50 lg:h-80 overflow-hidden rounded-lg bg-gray-100">
+                <img 
+                  src={meal.image} 
+                  alt={meal.name}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.src = '/images/meals/placeholder.jpg';
+                  }}
+                />
+              </div>
+            )}
+
+            {/* Nutrition */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Nutrition <span className="text-sm font-bold text-gray-500">({GOAL_LABELS[goal]})</span>
+              </h3>
+              
+              {/* Total Calories */}
+              <div className="flex justify-between items-center p-4 bg-emerald-50 rounded-xl mb-4">
+                <span className="text-base font-semibold text-gray-700">Total Calories</span>
+                <span className="text-xl font-bold text-emerald-600">{nutrition.calories} kcal</span>
+              </div>
+
+              {/* Macro Bar */}
+              <div className="mb-4">
+                <div className="flex h-8 rounded-full overflow-hidden shadow-inner">
+                  {macros.map((macro, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-center text-white font-semibold text-xs transition-all hover:brightness-110"
+                      style={{
+                        width: `${macro.percentage}%`,
+                        backgroundColor: macro.color
+                      }}
+                      title={`${macro.name}: ${macro.value}g (${macro.percentage}%)`}
+                    >
+                      {parseFloat(macro.percentage) > 12 && (
+                        <span className="text-[13px]">{macro.percentage}<span className="text-[9px]">%</span></span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Legend */}
+              <div className="space-y-2">
+                {macros.map((macro, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <span 
+                        className="w-4 h-4 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: macro.color }}
+                      />
+                      <span className="text-sm font-bold text-gray-700">{macro.name}</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      {macro.value}<span className="text-[12px]">g</span> ({macro.percentage}<span className="text-[9px]">%</span>)
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Ingredients */}
@@ -88,7 +158,7 @@ const MealDetailModal = ({ meal, goal = 'maintenance', onClose }) => {
 
           {/* Allergens */}
           {meal.allergens.length > 0 && (
-            <div className="mb-4">
+            <div className="mb-1">
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Allergens
               </h3>
@@ -104,58 +174,6 @@ const MealDetailModal = ({ meal, goal = 'maintenance', onClose }) => {
               </div>
             </div>
           )}
-
-          {/* Nutrition */}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Nutrition ({GOAL_LABELS[goal]})
-            </h3>
-            
-            {/* Total Calories */}
-            <div className="flex justify-between items-center p-4 bg-emerald-50 rounded-xl mb-4">
-              <span className="text-base font-semibold text-gray-700">Total Calories</span>
-              <span className="text-2xl font-bold text-emerald-600">{nutrition.calories} kcal</span>
-            </div>
-
-            {/* Macro Bar */}
-            <div className="mb-4">
-              <div className="flex h-8 rounded-full overflow-hidden shadow-inner">
-                {macros.map((macro, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-center text-white font-semibold text-xs transition-all hover:brightness-110"
-                    style={{
-                      width: `${macro.percentage}%`,
-                      backgroundColor: macro.color
-                    }}
-                    title={`${macro.name}: ${macro.value}g (${macro.percentage}%)`}
-                  >
-                    {parseFloat(macro.percentage) > 12 && (
-                      <span className="text-[13px]">{macro.percentage}<span className="text-[9px]">%</span></span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Legend */}
-            <div className="space-y-2">
-              {macros.map((macro, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <span 
-                      className="w-4 h-4 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: macro.color }}
-                    />
-                    <span className="text-sm font-bold text-gray-700">{macro.name}</span>
-                  </div>
-                  <span className="text-sm font-medium text-gray-900">
-                    {macro.value}<span className="text-[12px]">g</span> ({macro.percentage}<span className="text-[9px]">%</span>)
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
