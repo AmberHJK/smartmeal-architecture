@@ -20,7 +20,8 @@
       "baseCalories": 495,
       "baseCarbs": 74,
       "baseProtein": 18,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/avocado-toast-with-poached-eggs.jpg"
     },
     {
       "id": "vegemite-toast-with-butter",
@@ -38,7 +39,8 @@
       "baseCalories": 452,
       "baseCarbs": 67,
       "baseProtein": 16,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/vegemite-toast-with-butter.jpg"
     },
     {
       "id": "bacon-and-egg-roll",
@@ -59,7 +61,8 @@
       "baseCalories": 630,
       "baseCarbs": 94,
       "baseProtein": 23,
-      "baseFat": 17
+      "baseFat": 17,
+      "image": "/images/meals/bacon-and-egg-roll.jpg"
     },
     {
       "id": "greek-yogurt-with-granola-and-berries",
@@ -79,7 +82,8 @@
       "baseCalories": 480,
       "baseCarbs": 72,
       "baseProtein": 18,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/greek-yogurt-with-granola-and-berries.jpg"
     },
     {
       "id": "pancakes-with-maple-syrup",
@@ -101,7 +105,8 @@
       "baseCalories": 588,
       "baseCarbs": 88,
       "baseProtein": 22,
-      "baseFat": 16
+      "baseFat": 16,
+      "image": "/images/meals/pancakes-with-maple-syrup.jpg"
     },
     {
       "id": "smashed-avo-with-feta",
@@ -122,7 +127,8 @@
       "baseCalories": 485,
       "baseCarbs": 72,
       "baseProtein": 18,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/smashed-avo-with-feta.jpg"
     },
     {
       "id": "brekkie-burrito",
@@ -145,7 +151,8 @@
       "baseCalories": 728,
       "baseCarbs": 109,
       "baseProtein": 27,
-      "baseFat": 20
+      "baseFat": 20,
+      "image": "/images/meals/brekkie-burrito.jpg"
     },
     {
       "id": "porridge-with-honey-and-banana",
@@ -165,7 +172,8 @@
       "baseCalories": 470,
       "baseCarbs": 70,
       "baseProtein": 17,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/porridge-with-honey-and-banana.jpg"
     },
     {
       "id": "eggs-benedict",
@@ -186,7 +194,8 @@
       "baseCalories": 686,
       "baseCarbs": 102,
       "baseProtein": 25,
-      "baseFat": 19
+      "baseFat": 19,
+      "image": "/images/meals/eggs-benedict.jpg"
     },
     {
       "id": "chia-pudding-with-coconut",
@@ -205,7 +214,8 @@
       "baseCalories": 462,
       "baseCarbs": 69,
       "baseProtein": 17,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/chia-pudding-with-coconut.jpg"
     },
     {
       "id": "scrambled-eggs-on-toast",
@@ -228,7 +238,8 @@
       "baseCalories": 477,
       "baseCarbs": 71,
       "baseProtein": 17,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/scrambled-eggs-on-toast.jpg"
     },
     {
       "id": "acai-bowl-with-fruit",
@@ -248,7 +259,8 @@
       "baseCalories": 490,
       "baseCarbs": 73,
       "baseProtein": 18,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/acai-bowl-with-fruit.jpg"
     },
     {
       "id": "french-toast-with-berries",
@@ -271,7 +283,8 @@
       "baseCalories": 574,
       "baseCarbs": 86,
       "baseProtein": 21,
-      "baseFat": 15
+      "baseFat": 15,
+      "image": "/images/meals/french-toast-with-berries.jpg"
     },
     {
       "id": "breakfast-muffin-with-egg-and-cheese",
@@ -292,7 +305,8 @@
       "baseCalories": 495,
       "baseCarbs": 74,
       "baseProtein": 18,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/breakfast-muffin-with-egg-and-cheese.jpg"
     },
     {
       "id": "smoothie-bowl-with-granola",
@@ -313,7 +327,8 @@
       "baseCalories": 485,
       "baseCarbs": 72,
       "baseProtein": 18,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/smoothie-bowl-with-granola.jpg"
     },
     {
       "id": "chicken-schnitzel-with-chips",
@@ -335,7 +350,8 @@
       "baseCalories": 951,
       "baseCarbs": 130,
       "baseProtein": 47,
-      "baseFat": 26
+      "baseFat": 26,
+      "image": "/images/meals/chicken-schnitzel-with-chips.jpg"
     },
     {
       "id": "fish-and-chips",
@@ -357,7 +373,8 @@
       "baseCalories": 1007,
       "baseCarbs": 138,
       "baseProtein": 50,
-      "baseFat": 27
+      "baseFat": 27,
+      "image": "/images/meals/fish-and-chips.jpg"
     },
     {
       "id": "meat-pie-with-sauce",
@@ -376,7 +393,8 @@
       "baseCalories": 691,
       "baseCarbs": 95,
       "baseProtein": 34,
-      "baseFat": 19
+      "baseFat": 19,
+      "image": "/images/meals/meat-pie-with-sauce.jpg"
     },
     {
       "id": "sausage-roll",
@@ -395,7 +413,8 @@
       "baseCalories": 670,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/sausage-roll.jpg"
     },
     {
       "id": "chicken-caesar-salad",
@@ -416,7 +435,8 @@
       "baseCalories": 680,
       "baseCarbs": 93,
       "baseProtein": 34,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/chicken-caesar-salad.jpg"
     },
     {
       "id": "steak-sandwich",
@@ -438,7 +458,8 @@
       "baseCalories": 868,
       "baseCarbs": 119,
       "baseProtein": 43,
-      "baseFat": 24
+      "baseFat": 24,
+      "image": "/images/meals/steak-sandwich.jpg"
     },
     {
       "id": "prawn-pasta",
@@ -460,7 +481,8 @@
       "baseCalories": 696,
       "baseCarbs": 95,
       "baseProtein": 34,
-      "baseFat": 19
+      "baseFat": 19,
+      "image": "/images/meals/prawn-pasta.jpg"
     },
     {
       "id": "lamb-souvlaki-wrap",
@@ -481,7 +503,8 @@
       "baseCalories": 690,
       "baseCarbs": 94,
       "baseProtein": 34,
-      "baseFat": 19
+      "baseFat": 19,
+      "image": "/images/meals/lamb-souvlaki-wrap.jpg"
     },
     {
       "id": "poke-bowl-with-salmon",
@@ -503,7 +526,8 @@
       "baseCalories": 675,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/poke-bowl-with-salmon.jpg"
     },
     {
       "id": "veggie-burger-with-sweet-potato-fries",
@@ -524,7 +548,8 @@
       "baseCalories": 686,
       "baseCarbs": 94,
       "baseProtein": 34,
-      "baseFat": 19
+      "baseFat": 19,
+      "image": "/images/meals/veggie-burger-with-sweet-potato-fries.jpg"
     },
     {
       "id": "thai-beef-salad",
@@ -546,7 +571,8 @@
       "baseCalories": 668,
       "baseCarbs": 91,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/thai-beef-salad.jpg"
     },
     {
       "id": "blt-sandwich",
@@ -565,7 +591,8 @@
       "baseCalories": 676,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/blt-sandwich.jpg"
     },
     {
       "id": "pulled-pork-roll",
@@ -584,7 +611,8 @@
       "baseCalories": 698,
       "baseCarbs": 95,
       "baseProtein": 34,
-      "baseFat": 19
+      "baseFat": 19,
+      "image": "/images/meals/pulled-pork-roll.jpg"
     },
     {
       "id": "greek-salad-with-chicken",
@@ -605,7 +633,8 @@
       "baseCalories": 663,
       "baseCarbs": 91,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/greek-salad-with-chicken.jpg"
     },
     {
       "id": "barramundi-with-salad",
@@ -625,7 +654,8 @@
       "baseCalories": 670,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/barramundi-with-salad.jpg"
     },
     {
       "id": "bbq-steak-with-vegetables",
@@ -643,7 +673,8 @@
       "baseCalories": 788,
       "baseCarbs": 98,
       "baseProtein": 49,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/bbq-steak-with-vegetables.jpg"
     },
     {
       "id": "lamb-roast-with-potatoes",
@@ -660,7 +691,8 @@
       "baseCalories": 1092,
       "baseCarbs": 136,
       "baseProtein": 68,
-      "baseFat": 30
+      "baseFat": 30,
+      "image": "/images/meals/lamb-roast-with-potatoes.jpg"
     },
     {
       "id": "grilled-barramundi-with-lemon",
@@ -679,7 +711,8 @@
       "baseCalories": 762,
       "baseCarbs": 95,
       "baseProtein": 47,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/grilled-barramundi-with-lemon.jpg"
     },
     {
       "id": "spaghetti-bolognese",
@@ -700,7 +733,8 @@
       "baseCalories": 792,
       "baseCarbs": 99,
       "baseProtein": 49,
-      "baseFat": 22
+      "baseFat": 22,
+      "image": "/images/meals/spaghetti-bolognese.jpg"
     },
     {
       "id": "chicken-parma",
@@ -721,7 +755,8 @@
       "baseCalories": 1007,
       "baseCarbs": 125,
       "baseProtein": 62,
-      "baseFat": 27
+      "baseFat": 27,
+      "image": "/images/meals/chicken-parma.jpg"
     },
     {
       "id": "beef-and-guinness-pie",
@@ -741,7 +776,8 @@
       "baseCalories": 797,
       "baseCarbs": 99,
       "baseProtein": 49,
-      "baseFat": 22
+      "baseFat": 22,
+      "image": "/images/meals/beef-and-guinness-pie.jpg"
     },
     {
       "id": "garlic-prawns-with-rice",
@@ -762,7 +798,8 @@
       "baseCalories": 774,
       "baseCarbs": 96,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/garlic-prawns-with-rice.jpg"
     },
     {
       "id": "thai-green-curry",
@@ -782,7 +819,8 @@
       "baseCalories": 782,
       "baseCarbs": 97,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/thai-green-curry.jpg"
     },
     {
       "id": "kangaroo-steak-with-bush-tomato-chutney",
@@ -797,7 +835,8 @@
       "baseCalories": 754,
       "baseCarbs": 94,
       "baseProtein": 47,
-      "baseFat": 20
+      "baseFat": 20,
+      "image": "/images/meals/kangaroo-steak-with-bush-tomato-chutney.jpg"
     },
     {
       "id": "shepherds-pie",
@@ -815,7 +854,8 @@
       "baseCalories": 780,
       "baseCarbs": 97,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/shepherds-pie.jpg"
     },
     {
       "id": "fish-tacos",
@@ -838,7 +878,8 @@
       "baseCalories": 768,
       "baseCarbs": 96,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/fish-tacos.jpg"
     },
     {
       "id": "roast-chicken-with-gravy",
@@ -855,7 +896,8 @@
       "baseCalories": 791,
       "baseCarbs": 98,
       "baseProtein": 49,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/roast-chicken-with-gravy.jpg"
     },
     {
       "id": "seafood-paella",
@@ -876,7 +918,8 @@
       "baseCalories": 784,
       "baseCarbs": 98,
       "baseProtein": 49,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/seafood-paella.jpg"
     },
     {
       "id": "butter-chicken-with-naan",
@@ -897,7 +940,8 @@
       "baseCalories": 993,
       "baseCarbs": 124,
       "baseProtein": 62,
-      "baseFat": 27
+      "baseFat": 27,
+      "image": "/images/meals/butter-chicken-with-naan.jpg"
     },
     {
       "id": "veggie-stir-fry-with-tofu",
@@ -918,7 +962,8 @@
       "baseCalories": 760,
       "baseCarbs": 95,
       "baseProtein": 47,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/veggie-stir-fry-with-tofu.jpg"
     },
     {
       "id": "fruit-salad-with-honey",
@@ -937,7 +982,8 @@
       "baseCalories": 445,
       "baseCarbs": 66,
       "baseProtein": 16,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/fruit-salad-with-honey.jpg"
     },
     {
       "id": "rice-porridge-with-cinnamon",
@@ -954,7 +1000,8 @@
       "baseCalories": 455,
       "baseCarbs": 68,
       "baseProtein": 17,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/rice-porridge-with-cinnamon.jpg"
     },
     {
       "id": "grilled-tomatoes-and-mushrooms",
@@ -971,7 +1018,8 @@
       "baseCalories": 435,
       "baseCarbs": 65,
       "baseProtein": 16,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/grilled-tomatoes-and-mushrooms.jpg"
     },
     {
       "id": "sweet-potato-hash",
@@ -989,7 +1037,8 @@
       "baseCalories": 465,
       "baseCarbs": 69,
       "baseProtein": 17,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/sweet-potato-hash.jpg"
     },
     {
       "id": "banana-and-berry-smoothie",
@@ -1008,7 +1057,8 @@
       "baseCalories": 447,
       "baseCarbs": 67,
       "baseProtein": 16,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/banana-and-berry-smoothie.jpg"
     },
     {
       "id": "baked-beans-on-rice-cakes",
@@ -1023,7 +1073,8 @@
       "baseCalories": 460,
       "baseCarbs": 69,
       "baseProtein": 17,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/baked-beans-on-rice-cakes.jpg"
     },
     {
       "id": "quinoa-breakfast-bowl-with-fruit",
@@ -1044,7 +1095,8 @@
       "baseCalories": 470,
       "baseCarbs": 70,
       "baseProtein": 17,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/quinoa-breakfast-bowl-with-fruit.jpg"
     },
     {
       "id": "grilled-pineapple-with-coconut",
@@ -1060,7 +1112,8 @@
       "baseCalories": 440,
       "baseCarbs": 66,
       "baseProtein": 16,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/grilled-pineapple-with-coconut.jpg"
     },
     {
       "id": "watermelon-and-mint-salad",
@@ -1078,7 +1131,8 @@
       "baseCalories": 430,
       "baseCarbs": 64,
       "baseProtein": 16,
-      "baseFat": 11
+      "baseFat": 11,
+      "image": "/images/meals/watermelon-and-mint-salad.jpg"
     },
     {
       "id": "roasted-vegetables-with-herbs",
@@ -1098,7 +1152,8 @@
       "baseCalories": 450,
       "baseCarbs": 67,
       "baseProtein": 16,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/roasted-vegetables-with-herbs.jpg"
     },
     {
       "id": "grilled-chicken-with-steamed-vegetables",
@@ -1115,7 +1170,8 @@
       "baseCalories": 670,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/grilled-chicken-with-steamed-vegetables.jpg"
     },
     {
       "id": "roast-beef-salad-with-olive-oil",
@@ -1133,7 +1189,8 @@
       "baseCalories": 663,
       "baseCarbs": 91,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/roast-beef-salad-with-olive-oil.jpg"
     },
     {
       "id": "turkey-and-avocado-rice-bowl",
@@ -1151,7 +1208,8 @@
       "baseCalories": 676,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/turkey-and-avocado-rice-bowl.jpg"
     },
     {
       "id": "grilled-vegetable-skewers",
@@ -1169,7 +1227,8 @@
       "baseCalories": 640,
       "baseCarbs": 88,
       "baseProtein": 32,
-      "baseFat": 17
+      "baseFat": 17,
+      "image": "/images/meals/grilled-vegetable-skewers.jpg"
     },
     {
       "id": "chicken-and-rice-with-herbs",
@@ -1186,7 +1245,8 @@
       "baseCalories": 680,
       "baseCarbs": 93,
       "baseProtein": 34,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/chicken-and-rice-with-herbs.jpg"
     },
     {
       "id": "baked-sweet-potato-with-salsa",
@@ -1205,7 +1265,8 @@
       "baseCalories": 653,
       "baseCarbs": 89,
       "baseProtein": 32,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/baked-sweet-potato-with-salsa.jpg"
     },
     {
       "id": "roasted-pumpkin-soup",
@@ -1224,7 +1285,8 @@
       "baseCalories": 646,
       "baseCarbs": 88,
       "baseProtein": 32,
-      "baseFat": 17
+      "baseFat": 17,
+      "image": "/images/meals/roasted-pumpkin-soup.jpg"
     },
     {
       "id": "lamb-kofta-with-rice",
@@ -1244,7 +1306,8 @@
       "baseCalories": 686,
       "baseCarbs": 94,
       "baseProtein": 34,
-      "baseFat": 19
+      "baseFat": 19,
+      "image": "/images/meals/lamb-kofta-with-rice.jpg"
     },
     {
       "id": "chicken-teriyaki-with-steamed-broccoli",
@@ -1261,7 +1324,8 @@
       "baseCalories": 673,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/chicken-teriyaki-with-steamed-broccoli.jpg"
     },
     {
       "id": "roast-turkey-with-root-vegetables",
@@ -1279,7 +1343,8 @@
       "baseCalories": 675,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/roast-turkey-with-root-vegetables.jpg"
     },
     {
       "id": "grilled-lamb-chops-with-rosemary",
@@ -1296,7 +1361,8 @@
       "baseCalories": 782,
       "baseCarbs": 97,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/grilled-lamb-chops-with-rosemary.jpg"
     },
     {
       "id": "roast-chicken-with-root-vegetables",
@@ -1314,7 +1380,8 @@
       "baseCalories": 777,
       "baseCarbs": 97,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/roast-chicken-with-root-vegetables.jpg"
     },
     {
       "id": "bbq-kangaroo-with-roasted-pumpkin",
@@ -1330,7 +1397,8 @@
       "baseCalories": 760,
       "baseCarbs": 95,
       "baseProtein": 47,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/bbq-kangaroo-with-roasted-pumpkin.jpg"
     },
     {
       "id": "beef-stir-fry-with-rice",
@@ -1350,7 +1418,8 @@
       "baseCalories": 780,
       "baseCarbs": 97,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/beef-stir-fry-with-rice.jpg"
     },
     {
       "id": "grilled-chicken-breast-with-asparagus",
@@ -1367,7 +1436,8 @@
       "baseCalories": 754,
       "baseCarbs": 94,
       "baseProtein": 47,
-      "baseFat": 20
+      "baseFat": 20,
+      "image": "/images/meals/grilled-chicken-breast-with-asparagus.jpg"
     },
     {
       "id": "slow-cooked-lamb-shanks",
@@ -1384,7 +1454,8 @@
       "baseCalories": 791,
       "baseCarbs": 98,
       "baseProtein": 49,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/slow-cooked-lamb-shanks.jpg"
     },
     {
       "id": "roasted-turkey-with-vegetables",
@@ -1401,7 +1472,8 @@
       "baseCalories": 768,
       "baseCarbs": 96,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/roasted-turkey-with-vegetables.jpg"
     },
     {
       "id": "grilled-steak-with-chimichurri",
@@ -1419,7 +1491,8 @@
       "baseCalories": 785,
       "baseCarbs": 98,
       "baseProtein": 49,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/grilled-steak-with-chimichurri.jpg"
     },
     {
       "id": "chicken-and-vegetable-skewers",
@@ -1436,7 +1509,8 @@
       "baseCalories": 762,
       "baseCarbs": 95,
       "baseProtein": 47,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/chicken-and-vegetable-skewers.jpg"
     },
     {
       "id": "beef-and-vegetable-casserole",
@@ -1454,7 +1528,8 @@
       "baseCalories": 774,
       "baseCarbs": 96,
       "baseProtein": 48,
-      "baseFat": 21
+      "baseFat": 21,
+      "image": "/images/meals/beef-and-vegetable-casserole.jpg"
     },
     {
       "id": "tropical-fruit-bowl",
@@ -1471,7 +1546,8 @@
       "baseCalories": 450,
       "baseCarbs": 67,
       "baseProtein": 16,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/tropical-fruit-bowl.jpg"
     },
     {
       "id": "rice-cakes-with-avocado",
@@ -1488,7 +1564,8 @@
       "baseCalories": 470,
       "baseCarbs": 70,
       "baseProtein": 17,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/rice-cakes-with-avocado.jpg"
     },
     {
       "id": "mango-coconut-rice",
@@ -1505,7 +1582,8 @@
       "baseCalories": 485,
       "baseCarbs": 72,
       "baseProtein": 18,
-      "baseFat": 13
+      "baseFat": 13,
+      "image": "/images/meals/mango-coconut-rice.jpg"
     },
     {
       "id": "berry-compote-with-rice-pudding",
@@ -1522,7 +1600,8 @@
       "baseCalories": 460,
       "baseCarbs": 69,
       "baseProtein": 17,
-      "baseFat": 12
+      "baseFat": 12,
+      "image": "/images/meals/berry-compote-with-rice-pudding.jpg"
     },
     {
       "id": "moroccan-chicken-with-couscous",
@@ -1540,7 +1619,8 @@
       "baseCalories": 685,
       "baseCarbs": 94,
       "baseProtein": 34,
-      "baseFat": 19
+      "baseFat": 19,
+      "image": "/images/meals/moroccan-chicken-with-couscous.jpg"
     },
     {
       "id": "beef-and-rice-noodle-salad",
@@ -1559,7 +1639,8 @@
       "baseCalories": 660,
       "baseCarbs": 90,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/beef-and-rice-noodle-salad.jpg"
     },
     {
       "id": "chicken-and-quinoa-bowl",
@@ -1576,7 +1657,8 @@
       "baseCalories": 670,
       "baseCarbs": 92,
       "baseProtein": 33,
-      "baseFat": 18
+      "baseFat": 18,
+      "image": "/images/meals/chicken-and-quinoa-bowl.jpg"
     }
   ]
 }

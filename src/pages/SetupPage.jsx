@@ -77,7 +77,7 @@ const SetupPage = ({ onGenerate }) => {
                       title={`Carbs ${goal.macros.carb}%`}
                     >
                       {goal.macros.carb > 15 && (
-                        <span className="text-[11px] font-semibold text-white">Carb {goal.macros.carb}%</span>
+                        <span className="text-[11px] font-semibold tracking-tighter text-white">Carb <span className="text-[10px]">{goal.macros.carb}</span><span className="text-[8px]">%</span></span>
                       )}
                     </div>
                     <div 
@@ -86,7 +86,7 @@ const SetupPage = ({ onGenerate }) => {
                       title={`Protein ${goal.macros.protein}%`}
                     >
                       {goal.macros.protein > 15 && (
-                        <span className="text-[11px] font-semibold text-white whitespace-nowrap absolute top-50% left-50% ml-50%">Protein {goal.macros.protein}%</span>
+                        <span className="text-[11px] font-semibold tracking-tighter text-white whitespace-nowrap absolute top-50% left-50% ml-50%">Protein <span className="text-[10px]">{goal.macros.protein}</span><span className="text-[8px]">%</span></span>
                       )}
                     </div>
                     <div 
@@ -95,7 +95,7 @@ const SetupPage = ({ onGenerate }) => {
                       title={`Fat ${goal.macros.fat}%`}
                     >
                       {goal.macros.fat > 15 && (
-                        <span className="text-[11px] font-semibold text-white">Fat {goal.macros.fat}%</span>
+                        <span className="text-[11px] font-semibold tracking-tighter text-white">Fat <span className="text-[10px]">{goal.macros.fat}</span><span className="text-[8px]">%</span></span>
                       )}
                     </div>
                   </div>
@@ -132,7 +132,7 @@ const SetupPage = ({ onGenerate }) => {
           {/* Selected Count */}
           {selectedAllergens.length > 0 && (
             <div className="mt-4 text-sm text-gray-600">
-              <span className="font-semibold">- Avoiding:</span> <span className="font-semibold text-red-600 capitalize">{selectedAllergens.join(', ')}</span>
+              <span className="font-semibold">• Avoiding:</span> <span className="font-semibold text-red-600 capitalize">{selectedAllergens.join(', ')}</span>
             </div>
           )}
         </section>
@@ -140,7 +140,7 @@ const SetupPage = ({ onGenerate }) => {
         {/* Generate Button */}
         <button
           onClick={handleGenerate}
-          className="w-full py-4 sm:py-5 px-6 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-400 text-white text-lg sm:text-xl font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+          className="w-full py-4 sm:py-5 px-6 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-lg sm:text-xl font-semibold rounded-xl shadow-lg hover:shadow-xl hover:brightness-120 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
         >
           <span className="font-semibold text-white">Generate Meal Plan</span>
         </button>

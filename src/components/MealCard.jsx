@@ -14,10 +14,10 @@ const MealCard = ({ meal, goal = 'maintenance', onClick }) => {
   return (
     <div 
       onClick={() => onClick(meal)}
-      className="relative bg-white rounded-xl border-2 border-gray-200 p-4 pt-6 cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] hover:border-emerald-300 flex flex-col h-full overflow-hidden"
+      className="relative bg-white rounded-xl border-2 border-gray-200 p-4 pt-8 cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] hover:border-emerald-300 flex flex-col h-full overflow-hidden"
     >
       {/* Category Badge */}
-      <span className="absolute top-0 left-0 right-0 px-3 py-1 bg-teal-100 text-emerald-700 text-xs font-medium capitalize">
+      <span className="absolute top-0 left-0 right-0 px-4 py-2 bg-teal-100 text-emerald-700 text-xs font-medium capitalize">
         {meal.category}
       </span>
 
