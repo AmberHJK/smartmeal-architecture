@@ -255,20 +255,20 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
           <div className="flex items-center gap-4">
             <button 
               onClick={onBack}
-              className="flex items-center gap-2 px-4 py-2 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors font-medium"
+              className="flex items-center gap-2 px-2 py-2 bg-emerald-100 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-100 rounded-lg transition-colors font-medium"
             >
-              <span>←</span>
-              <span>Back</span>
+              <span>&lt;</span>
+              <span className="hidden sm:block">Back</span>
             </button>
             <div className="flex-1">
-              <h1 className="text-2xl sm:text-l font-bold text-gray-900">
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900">
                 Your Weekly Meal Plan
               </h1>
               <p className="text-sm sm:text-base text-gray-600 mt-1">
-                <span className="font-semibold">- Goal:</span> <span className="font-semibold text-emerald-600">{GOAL_LABELS[goal]}</span>
+                <span className="font-semibold">• Goal</span>: <span className="font-semibold text-emerald-600">{GOAL_LABELS[goal]}</span>
                 {allergens.length > 0 && (
                   <>
-                    {' '} | Avoiding: <span className="font-semibold text-red-600 capitalize">{allergens.join(', ')}</span>
+                    {' '} | <span className="font-semibold">• Avoiding</span>: <span className="font-semibold text-red-600 capitalize">{allergens.join(', ')}</span>
                   </>
                 )}
               </p>
@@ -301,8 +301,56 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
                   </div>
                 </div>
 
+                {/* Macro Bar */}
+                <div className="mb-4">
+                  <div className="flex h-4 rounded-full h-8 overflow-hidden bg-gray-200 shadow-inner">
+                    {macros.map((macro, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-center text-white font-bold text-xs transition-all hover:brightness-110"
+                        style={{
+                          width: `${macro.calPercentage}%`,
+                          backgroundColor: macro.color
+                        }}
+                        title={`${macro.name}: ${macro.value}g (${macro.calPercentage}%)`}
+                      >
+                        {parseFloat(macro.calPercentage) > 10 && (
+                          <span>{macro.calPercentage}<span className="text-[9px]">%</span></span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Legend */}
+                  <div className="flex flex-wrap gap-4 mt-3 text-sm">
+                    {macros.map((macro, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <span 
+                          className="w-3 h-3 rounded-full"
+                          style={{ backgroundColor: macro.color }}
+                        />
+                        <span className="font-medium text-gray-700">
+                          <span className="font-semibold">{macro.name}</span>: {macro.value}g ({macro.calPercentage}<span className="text-[9px]">%</span>)
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Meal Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {MEAL_TYPES.map(type => (
+                    <MealCard
+                      key={`${day}-${type}`}
+                      meal={weekPlan[day][type]}
+                      goal={goal}
+                      onClick={setSelectedMeal}
+                    />
+                  ))}
+                </div>
+
                 {/* AI Optimize Button */}
-                <div className={`flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 rounded-xl mb-4 ${
+                <div className={`flex flex-wrap items-center justify-between gap-3 p-3 mt-4 sm:p-4 rounded-xl ${
                   isOffTarget 
                     ? 'bg-yellow-50 border border-yellow-200' 
                     : 'bg-blue-50 border border-blue-200'
@@ -321,54 +369,6 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
                   >
                     {isOptimizing && optimizingDay === day ? '🔄 Optimizing...' : '🤖 Optimize with AI'}
                   </button>
-                </div>
-
-                {/* Macro Bar */}
-                <div className="mb-4">
-                  <div className="flex h-4 rounded-full h-8 overflow-hidden bg-gray-200 shadow-inner">
-                    {macros.map((macro, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-center text-white font-bold text-xs transition-all hover:brightness-110"
-                        style={{
-                          width: `${macro.calPercentage}%`,
-                          backgroundColor: macro.color
-                        }}
-                        title={`${macro.name}: ${macro.value}g (${macro.calPercentage}%)`}
-                      >
-                        {parseFloat(macro.calPercentage) > 10 && (
-                          <span>{macro.calPercentage}%</span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  
-                  {/* Legend */}
-                  <div className="flex flex-wrap gap-4 mt-3 text-sm">
-                    {macros.map((macro, index) => (
-                      <div key={index} className="flex items-center gap-2">
-                        <span 
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: macro.color }}
-                        />
-                        <span className="font-medium text-gray-700">
-                          {macro.name}: {macro.value}g ({macro.calPercentage}%)
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Meal Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {MEAL_TYPES.map(type => (
-                    <MealCard
-                      key={`${day}-${type}`}
-                      meal={weekPlan[day][type]}
-                      goal={goal}
-                      onClick={setSelectedMeal}
-                    />
-                  ))}
                 </div>
               </div>
             );
