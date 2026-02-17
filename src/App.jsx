@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Toaster } from "@/components/ui/sonner"
 import SetupPage from './pages/SetupPage';
 import MealPlanPage from './pages/MealPlanPage';
 
@@ -37,6 +38,8 @@ function App() {
 
   return (
     <div className="app">
+      <Toaster position="top-right" richColors />
+      
       {currentPage === 'setup' && (
         <SetupPage onGenerate={handleGenerate} />
       )}

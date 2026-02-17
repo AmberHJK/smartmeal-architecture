@@ -69,7 +69,7 @@ const OptimizationModal = ({
                     <div className="flex flex-col sm:flex-row gap-4">
                       {/* Image */}
                       {meal.image && (
-                        <div className="w-full sm:w-2/5 h-40 sm:h-auto rounded-lg overflow-hidden bg-gray-100 shadow-md flex-shrink-0">
+                        <div className="w-full sm:w-2/5 h-40 sm:h-45 rounded-lg overflow-hidden bg-gray-100 shadow-md flex-shrink-0">
                           <img
                             src={meal.image}
                             alt={meal.name}
@@ -93,7 +93,7 @@ const OptimizationModal = ({
                           {suggestions.map((suggestion, index) => (
                             <div key={index} className="flex flex-col gap-1.5">
                               <p className="text-sm font-normal text-gray-900">
-                                • {suggestion.action}
+                                - {suggestion.action}
                               </p>
                               <div className="flex items-center gap-2 px-3 py-1.5 bg-white border border-emerald-200 rounded-lg w-fit mt-1">
                                 <span className="text-sm">📊</span>

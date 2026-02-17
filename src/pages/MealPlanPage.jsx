@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from "sonner"
 import { SERVING_SIZE_MULTIPLIERS, GOAL_MACROS, GOAL_LABELS, MACRO_COLORS } from '../utils/constants';
 import MealCard from '../components/MealCard';
 import MealDetailModal from '../components/MealDetailModal';
@@ -15,7 +16,6 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
   const [optimizeStartTime, setOptimizeStartTime] = useState(null);
   
   const [weekPlan, setWeekPlan] = useState(() => {
-    console.log('Generating week plan with meals:', meals.length);
     return generateWeekPlan(meals);
   });
 
@@ -44,21 +44,20 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
       });
 
       const result = await response.json();
-      console.log('AI Response:', result);
       
       // Handle different statuses
       if (result.status === 'QUOTA_EXCEEDED') {
-        alert('⚠️ AI Optimization Limit Reached\n\nThe daily limit for AI suggestions has been reached. Please try again tomorrow.\n\n(Free tier: 20 requests/day)');
+        toast.error('AI optimization limit reached. Please try again tomorrow.')
         return;
       }
       
       if (result.status === 'ERROR') {
-        alert('❌ Optimization Failed\n\n' + result.error);
+        toast.error(result.error)
         return;
       }
       
       if (result.status === 'NO_SUGGESTIONS') {
-        alert('✅ Meal Plan Already Optimized\n\nYour current meal plan is already well-balanced for your goal. No changes needed!');
+        toast.success('Your meal plan is already well-balanced! No changes needed.')
         return;
       }
       
@@ -69,60 +68,11 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
       
     } catch (error) {
       console.error('Optimization failed:', error);
-      alert('❌ Network Error\n\nPlease check your connection and try again.');
+      toast.error('Network error. Please check your connection and try again.')
     } finally {
       const elapsed = ((Date.now() - optimizeStartTime) / 1000).toFixed(1);
-      console.log(`Optimization took ${elapsed}s`);
       setIsOptimizing(false);
       setOptimizingDay(null);
-    }
-  };
-
-  const handleApplySuggestion = (suggestion) => {
-    const newPlan = { ...weekPlan };
-    const replacementMeal = meals.find(m => m.id === suggestion.replacementMealId);
-    const currentMeal = weekPlan[optimizationResult.day][suggestion.mealType];
-    
-    if (replacementMeal) {
-      console.log('=== Meal Swap ===');
-      console.log('Current:', currentMeal.name, currentMeal.baseCalories, 'kcal');
-      console.log('Replacement:', replacementMeal.name, replacementMeal.baseCalories, 'kcal');
-      console.log('Difference:', replacementMeal.baseCalories - currentMeal.baseCalories, 'kcal');
-    
-      newPlan[optimizationResult.day][suggestion.mealType] = replacementMeal;
-      setWeekPlan(newPlan);
-      
-      const remainingSuggestions = optimizationResult.suggestions.filter(
-        s => s.mealType !== suggestion.mealType
-      );
-      
-      if (remainingSuggestions.length > 0) {
-        setOptimizationResult({
-          ...optimizationResult,
-          suggestions: remainingSuggestions
-        });
-      } else {
-        setOptimizationResult(null);
-      }
-    }
-  };
-
-  const handleApplyAllSuggestions = () => {
-    const newPlan = { ...weekPlan };
-    let appliedCount = 0;
-    
-    optimizationResult.suggestions.forEach(suggestion => {
-      const replacementMeal = meals.find(m => m.id === suggestion.replacementMealId);
-      if (replacementMeal) {
-        newPlan[optimizationResult.day][suggestion.mealType] = replacementMeal;
-        appliedCount++;
-      }
-    });
-    
-    if (appliedCount > 0) {
-      setWeekPlan(newPlan);
-      setOptimizationResult(null);
-      alert(`${appliedCount} meal(s) replaced successfully!`);
     }
   };
 
