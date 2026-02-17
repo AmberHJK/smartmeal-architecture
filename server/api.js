@@ -13,6 +13,25 @@ app.use(express.json());
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
+// Parse AI JSON response
+const parseAIResponse = (text) => {
+  let cleaned = text.replace(/```json\n?|\n?```/g, '').trim();
+  
+  const jsonStart = cleaned.indexOf('{');
+  const jsonEnd = cleaned.lastIndexOf('}');
+  if (jsonStart === -1 || jsonEnd === -1) return null;
+  
+  cleaned = cleaned.substring(jsonStart, jsonEnd + 1);
+  
+  cleaned = cleaned
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, ' ')
+    .replace(/,(\s*[}\]])/g, '$1')
+    .replace(/\n/g, ' ')
+    .trim();
+  
+  return JSON.parse(cleaned);
+};
+
 // Test endpoint
 app.get('/api/test', async (req, res) => {
   try {
@@ -29,116 +48,113 @@ app.get('/api/test', async (req, res) => {
 
 app.post('/api/optimize-meal-plan', async (req, res) => {
   try {
-    const { day, currentMeals, currentMacros, targetMacros, goal, allergens, availableMeals } = req.body;
-    
+    const { day, currentMeals, currentMacros, targetMacros, goal, allergens } = req.body;
+
     console.log('=== Optimization Request ===');
     console.log('Day:', day, '| Goal:', goal);
     const startTime = Date.now();
-    
-    // Filter by category
-    const breakfastOptions = availableMeals
-      .filter(m => m.category === 'breakfast' && !m.allergens.some(a => allergens.includes(a)))
-      .slice(0, 5);
-    
-    const lunchOptions = availableMeals
-      .filter(m => m.category === 'lunch' && !m.allergens.some(a => allergens.includes(a)))
-      .slice(0, 5);
-    
-    const dinnerOptions = availableMeals
-      .filter(m => m.category === 'dinner' && !m.allergens.some(a => allergens.includes(a)))
-      .slice(0, 5);
 
-    const model = genAI.getGenerativeModel({ 
-      model: "gemini-2.5-flash",
-      generationConfig: {
-        temperature: 0.3,
-      }
-    });
+    // Calculate macro gaps on server
+    const carbGap = parseFloat(currentMacros[0].calPercentage) - targetMacros.carb;
+    const proteinGap = parseFloat(currentMacros[1].calPercentage) - targetMacros.protein;
+    const fatGap = parseFloat(currentMacros[2].calPercentage) - targetMacros.fat;
 
-    const prompt = `You are a nutrition expert. Analyze ${day} meal plan for ${goal}:
+    // Build needs array
+    const needs = [];
+    if (Math.abs(carbGap) > 3) needs.push(carbGap > 0
+      ? `your carbs are ${carbGap.toFixed(1)}% over target`
+      : `your carbs are ${Math.abs(carbGap).toFixed(1)}% under target`);
+    if (Math.abs(proteinGap) > 3) needs.push(proteinGap < 0
+      ? `your protein is ${Math.abs(proteinGap).toFixed(1)}% under target`
+      : `your protein is ${proteinGap.toFixed(1)}% over target`);
+    if (Math.abs(fatGap) > 3) needs.push(fatGap > 0
+      ? `your fat is ${fatGap.toFixed(1)}% over target`
+      : `your fat is ${Math.abs(fatGap).toFixed(1)}% under target`);
 
-CRITICAL: Respond ONLY with valid JSON. No markdown, no extra text.
-
-Current Macros (calorie %):
-- Carbs: ${currentMacros[0].calPercentage}% (target: ${targetMacros.carb}%)
-- Protein: ${currentMacros[1].calPercentage}% (target: ${targetMacros.protein}%)
-- Fat: ${currentMacros[2].calPercentage}% (target: ${targetMacros.fat}%)
-
-Current Meals:
-- Breakfast: ${currentMeals.breakfast.name} (${currentMeals.breakfast.baseCalories} kcal)
-- Lunch: ${currentMeals.lunch.name} (${currentMeals.lunch.baseCalories} kcal)
-- Dinner: ${currentMeals.dinner.name} (${currentMeals.dinner.baseCalories} kcal)
-
-Available Options:
-Breakfast: ${JSON.stringify(breakfastOptions.map(m => ({id: m.id, name: m.name, cal: m.baseCalories, c: m.baseCarbs, p: m.baseProtein, f: m.baseFat})))}
-
-Lunch: ${JSON.stringify(lunchOptions.map(m => ({id: m.id, name: m.name, cal: m.baseCalories, c: m.baseCarbs, p: m.baseProtein, f: m.baseFat})))}
-
-Dinner: ${JSON.stringify(dinnerOptions.map(m => ({id: m.id, name: m.name, cal: m.baseCalories, c: m.baseCarbs, p: m.baseProtein, f: m.baseFat})))}
-
-RULES:
-1. Only suggest swaps within ±150 kcal of current meal
-2. Ensure replacementMealName matches the actual meal name from options
-3. For ${goal}: improve macro ratios without increasing total calories
-4. If no good swap exists, return empty suggestions array []
-
-REQUIRED JSON FORMAT:
-{
-  "analysis": "Brief explanation",
-  "suggestions": [
-    {
-      "mealType": "breakfast",
-      "currentMealId": "${currentMeals.breakfast.id}",
-      "replacementMealId": "EXACT_ID_FROM_OPTIONS",
-      "replacementMealName": "EXACT_NAME_FROM_OPTIONS",
-      "reason": "Short explanation"
-    }
-  ]
-}`;
-  
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
-    
-    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-    console.log(`=== AI Response (${elapsed}s) ===`);
-    console.log(responseText);
-    
-    // Parse JSON
-    let cleanedResponse = responseText.trim();
-    cleanedResponse = cleanedResponse.replace(/```json\n?|\n?```/g, '');
-    
-    const jsonStart = cleanedResponse.indexOf('{');
-    const jsonEnd = cleanedResponse.lastIndexOf('}');
-    
-    if (jsonStart !== -1 && jsonEnd !== -1) {
-      cleanedResponse = cleanedResponse.substring(jsonStart, jsonEnd + 1);
-    }
-    
-    console.log('=== Cleaned JSON ===');
-    console.log(cleanedResponse);
-    
-    const aiResponse = JSON.parse(cleanedResponse);
-    
-    // Check if no suggestions (normal case)
-    if (!aiResponse.suggestions || aiResponse.suggestions.length === 0) {
+    // No meaningful gap - skip AI call entirely
+    if (needs.length === 0) {
       return res.json({
         status: 'NO_SUGGESTIONS',
-        analysis: aiResponse.analysis || "Your current meal plan is already well-balanced for your goal. No changes needed!",
+        analysis: `Your ${day} macros are well-balanced for ${goal}. Carbs ${currentMacros[0].calPercentage}% / Protein ${currentMacros[1].calPercentage}% / Fat ${currentMacros[2].calPercentage}% are close to target.`,
         suggestions: []
       });
     }
-    
-    // Success response
+
+    const analysis = `Current macros (C:${currentMacros[0].calPercentage}% P:${currentMacros[1].calPercentage}% F:${currentMacros[2].calPercentage}%) vs target (C:${targetMacros.carb}% P:${targetMacros.protein}% F:${targetMacros.fat}%). Need to ${needs.join(' and ')}.`;
+
+    // AI only suggests adjustments
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      generationConfig: { temperature: 0.3, maxOutputTokens: 4096 }
+    });
+
+    const prompt = `You are a nutrition expert. Give exactly 2 short meal adjustments.
+
+Current: Carbs ${currentMacros[0].calPercentage}% / Protein ${currentMacros[1].calPercentage}% / Fat ${currentMacros[2].calPercentage}%
+Target: Carbs ${targetMacros.carb}% / Protein ${targetMacros.protein}% / Fat ${targetMacros.fat}%
+Need: ${needs.join(', ')}
+
+Meals:
+- Breakfast: ${currentMeals.breakfast.name}
+- Lunch: ${currentMeals.lunch.name}
+- Dinner: ${currentMeals.dinner.name}
+${allergens.length > 0 ? `Avoid: ${allergens.join(', ')}` : ''}
+
+Rules:
+- action: max 10 words (e.g. "Reduce banana by half (50g)")
+- impact: numbers only (e.g. "-11g carbs, +5g protein")
+- mealType: lowercase only
+
+JSON only, no explanation:
+{"suggestions":[{"mealType":"breakfast","action":"...","impact":"..."},{"mealType":"lunch","action":"...","impact":"..."}]}`;
+
+    // AI call with retry (max 3 attempts)
+    let aiResponse = null;
+    let attempts = 0;
+
+    while (!aiResponse && attempts < 3) {
+      attempts++;
+      let responseText = '';
+      try {
+        const result = await model.generateContent(prompt);
+        responseText = result.response.text().trim();
+        aiResponse = parseAIResponse(responseText);
+      } catch (e) {
+        console.log(`=== Attempt ${attempts} failed ===`);
+        console.log('Raw response:');
+        console.log(responseText);
+        console.log('Error:', e.message);
+        if (attempts === 3) throw e;
+      }
+    }
+
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    console.log(`=== Optimization complete (${elapsed}s, ${attempts} attempt(s)) ===`);
+
+    if (!aiResponse || !aiResponse.suggestions || aiResponse.suggestions.length === 0) {
+      return res.json({
+        status: 'NO_SUGGESTIONS',
+        analysis,
+        suggestions: []
+      });
+    }
+
+    // Normalize mealType to lowercase
+    aiResponse.suggestions = aiResponse.suggestions.map(s => ({
+      ...s,
+      mealType: s.mealType.toLowerCase()
+    }));
+
     res.json({
       status: 'SUCCESS',
-      ...aiResponse
+      analysis,
+      suggestions: aiResponse.suggestions
     });
 
   } catch (error) {
     console.error('=== ERROR ===');
     console.error(error.message);
-    
-    // Quota exceeded (429)
+
     if (error.message.includes('429') || error.message.includes('quota')) {
       return res.status(429).json({
         status: 'QUOTA_EXCEEDED',
@@ -146,8 +162,7 @@ REQUIRED JSON FORMAT:
         suggestions: []
       });
     }
-    
-    // Other errors
+
     return res.status(500).json({
       status: 'ERROR',
       error: 'Unable to process AI optimization. Please try again.',

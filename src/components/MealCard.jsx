@@ -14,15 +14,29 @@ const MealCard = ({ meal, goal = 'maintenance', onClick }) => {
   return (
     <div 
       onClick={() => onClick(meal)}
-      className="relative bg-white rounded-xl border-2 border-gray-200 p-4 pt-8 cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] hover:border-emerald-300 flex flex-col h-full overflow-hidden"
+      className="relative bg-white rounded-xl border-2 border-gray-200 p-4 pt-12 cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02] hover:border-emerald-300 flex flex-col h-full overflow-hidden"
     >
       {/* Category Badge */}
       <span className="absolute top-0 left-0 right-0 px-4 py-2 bg-teal-100 text-emerald-700 text-xs font-medium capitalize">
         {meal.category}
       </span>
 
+      {/* Meal Image */}
+      {meal.image && (
+        <div className="w-full h-35 mb-3 rounded-lg overflow-hidden bg-gray-100 shadow-md">
+          <img 
+            src={meal.image} 
+            alt={meal.name}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.src = '/images/meals/placeholder.jpg';
+            }}
+          />
+        </div>
+      )}
+
       {/* Header */}
-      <div className="flex-grow pt-3">
+      <div className="flex-grow">
         <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
           {meal.name}
         </h4>
