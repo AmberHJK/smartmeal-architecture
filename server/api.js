@@ -13,6 +13,25 @@ app.use(express.json());
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
+// Parse AI JSON response
+const parseAIResponse = (text) => {
+  let cleaned = text.replace(/```json\n?|\n?```/g, '').trim();
+  
+  const jsonStart = cleaned.indexOf('{');
+  const jsonEnd = cleaned.lastIndexOf('}');
+  if (jsonStart === -1 || jsonEnd === -1) return null;
+  
+  cleaned = cleaned.substring(jsonStart, jsonEnd + 1);
+  
+  cleaned = cleaned
+    .replace(/[\u0000-\u001F\u007F-\u009F]/g, ' ')
+    .replace(/,(\s*[}\]])/g, '$1')
+    .replace(/\n/g, ' ')
+    .trim();
+  
+  return JSON.parse(cleaned);
+};
+
 // Test endpoint
 app.get('/api/test', async (req, res) => {
   try {
@@ -69,65 +88,62 @@ app.post('/api/optimize-meal-plan', async (req, res) => {
       generationConfig: { temperature: 0.3, maxOutputTokens: 4096 }
     });
 
-    const prompt = `You are a nutrition expert. Give 2-3 specific meal adjustments with exact quantities and macro impact.
+    const prompt = `You are a nutrition expert. Give exactly 2 short meal adjustments.
 
 Current: Carbs ${currentMacros[0].calPercentage}% / Protein ${currentMacros[1].calPercentage}% / Fat ${currentMacros[2].calPercentage}%
 Target: Carbs ${targetMacros.carb}% / Protein ${targetMacros.protein}% / Fat ${targetMacros.fat}%
 Need: ${needs.join(', ')}
 
 Meals:
-- Breakfast: ${currentMeals.breakfast.name} (ingredients: ${currentMeals.breakfast.ingredients.join(', ')})
-- Lunch: ${currentMeals.lunch.name} (ingredients: ${currentMeals.lunch.ingredients.join(', ')})
-- Dinner: ${currentMeals.dinner.name} (ingredients: ${currentMeals.dinner.ingredients.join(', ')})
+- Breakfast: ${currentMeals.breakfast.name}
+- Lunch: ${currentMeals.lunch.name}
+- Dinner: ${currentMeals.dinner.name}
 ${allergens.length > 0 ? `Avoid: ${allergens.join(', ')}` : ''}
 
 Rules:
-- Include exact amount (e.g. "50g", "1 scoop 30g", "2 boiled eggs")
-- Include estimated macro impact (e.g. "-11.5g carbs, -0.5g protein")
-- Only adjust ingredients already in the meal OR common add-ons
-- mealType must be lowercase: "breakfast", "lunch", or "dinner"
+- action: max 10 words (e.g. "Reduce banana by half (50g)")
+- impact: numbers only (e.g. "-11g carbs, +5g protein")
+- mealType: lowercase only
 
-JSON only:
-{"suggestions":[{"mealType":"breakfast","action":"Reduce banana by half (approx. 50g)","impact":"-11.5g carbs, -0.5g protein, -0.15g fat"}]}`;
+JSON only, no explanation:
+{"suggestions":[{"mealType":"breakfast","action":"...","impact":"..."},{"mealType":"lunch","action":"...","impact":"..."}]}`;
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text().trim();
+    // AI call with retry (max 3 attempts)
+    let aiResponse = null;
+    let attempts = 0;
+
+    while (!aiResponse && attempts < 3) {
+      attempts++;
+      let responseText = '';
+      try {
+        const result = await model.generateContent(prompt);
+        responseText = result.response.text().trim();
+        aiResponse = parseAIResponse(responseText);
+      } catch (e) {
+        console.log(`=== Attempt ${attempts} failed ===`);
+        console.log('Raw response:');
+        console.log(responseText);
+        console.log('Error:', e.message);
+        if (attempts === 3) throw e;
+      }
+    }
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-    console.log(`=== Optimization complete (${elapsed}s) ===`);
+    console.log(`=== Optimization complete (${elapsed}s, ${attempts} attempt(s)) ===`);
 
-    // Parse JSON
-    let cleanedResponse = responseText.replace(/```json\n?|\n?```/g, '');
-    const jsonStart = cleanedResponse.indexOf('{');
-    const jsonEnd = cleanedResponse.lastIndexOf('}');
-
-    if (jsonStart === -1 || jsonEnd === -1) {
-      console.error('No valid JSON found in response');
-      return res.status(500).json({
-        status: 'ERROR',
-        error: 'Unable to process AI optimization. Please try again.',
-        suggestions: []
-      });
-    }
-
-    cleanedResponse = cleanedResponse.substring(jsonStart, jsonEnd + 1);
-    const aiResponse = JSON.parse(cleanedResponse);
-
-    // Normalize mealType to lowercase
-    if (aiResponse.suggestions) {
-      aiResponse.suggestions = aiResponse.suggestions.map(s => ({
-        ...s,
-        mealType: s.mealType.toLowerCase()
-      }));
-    }
-
-    if (!aiResponse.suggestions || aiResponse.suggestions.length === 0) {
+    if (!aiResponse || !aiResponse.suggestions || aiResponse.suggestions.length === 0) {
       return res.json({
         status: 'NO_SUGGESTIONS',
         analysis,
         suggestions: []
       });
     }
+
+    // Normalize mealType to lowercase
+    aiResponse.suggestions = aiResponse.suggestions.map(s => ({
+      ...s,
+      mealType: s.mealType.toLowerCase()
+    }));
 
     res.json({
       status: 'SUCCESS',
