@@ -23,7 +23,7 @@ const MealCard = ({ meal, goal = 'maintenance', onClick }) => {
 
       {/* Meal Image */}
       {meal.image && (
-        <div className="w-full h-35 mb-3 rounded-lg overflow-hidden bg-gray-100">
+        <div className="w-full h-35 mb-3 rounded-lg overflow-hidden bg-gray-100 shadow-md">
           <img 
             src={meal.image} 
             alt={meal.name}

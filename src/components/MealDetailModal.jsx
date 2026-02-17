@@ -74,7 +74,7 @@ const MealDetailModal = ({ meal, goal = 'maintenance', onClose }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             {/* Meal Image */}
             {meal.image && (
-              <div className="w-full h-50 lg:h-80 overflow-hidden rounded-lg bg-gray-100">
+              <div className="w-full h-50 lg:h-80 overflow-hidden rounded-lg bg-gray-100 shadow-md">
                 <img 
                   src={meal.image} 
                   alt={meal.name}

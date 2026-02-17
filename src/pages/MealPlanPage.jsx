@@ -381,8 +381,6 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
         optimizationResult={optimizationResult}
         weekPlan={weekPlan}
         onClose={() => setOptimizationResult(null)}
-        onApplySuggestion={handleApplySuggestion}
-        onApplyAll={handleApplyAllSuggestions}
       />
 
       <MealDetailModal
