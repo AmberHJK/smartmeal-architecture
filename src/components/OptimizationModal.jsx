@@ -69,7 +69,7 @@ const OptimizationModal = ({
                     <div className="flex flex-col sm:flex-row gap-4">
                       {/* Image */}
                       {meal.image && (
-                        <div className="w-full sm:w-1/3 h-40 sm:h-auto rounded-lg overflow-hidden bg-gray-100 shadow-md flex-shrink-0">
+                        <div className="w-full sm:w-2/5 h-40 sm:h-auto rounded-lg overflow-hidden bg-gray-100 shadow-md flex-shrink-0">
                           <img
                             src={meal.image}
                             alt={meal.name}
@@ -79,9 +79,9 @@ const OptimizationModal = ({
                         </div>
                       )}
                       {/* Name + Ingredients */}
-                      <div className="w-full sm:w-2/3 min-w-0">
-                        <h4 className="text-base font-bold text-gray-900 mb-1">{meal.name}</h4>
-                        <p className="text-xs text-gray-500 leading-relaxed capitalize">
+                      <div className="w-full sm:w-3/5 min-w-0">
+                        <h4 className="text-xl font-bold text-gray-900 mb-1">{meal.name}</h4>
+                        <p className="text-sm text-gray-500 leading-relaxed capitalize">
                           • {meal.ingredients.join(', ')}
                         </p>
                         
@@ -96,6 +96,7 @@ const OptimizationModal = ({
                                 • {suggestion.action}
                               </p>
                               <div className="flex items-center gap-2 px-3 py-1.5 bg-white border border-emerald-200 rounded-lg w-fit mt-1">
+                                <span className="text-sm">📊</span>
                                 <span className="text-sm font-medium text-emerald-700">
                                   {suggestion.impact}
                                 </span>

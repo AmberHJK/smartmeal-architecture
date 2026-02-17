@@ -66,18 +66,29 @@ app.post('/api/optimize-meal-plan', async (req, res) => {
     // AI only suggests adjustments
     const model = genAI.getGenerativeModel({
       model: "gemini-2.5-flash",
-      generationConfig: { temperature: 0.3, maxOutputTokens: 2048 }
+      generationConfig: { temperature: 0.3, maxOutputTokens: 4096 }
     });
 
-    const prompt = `Give 2 meal adjustments as JSON.
+    const prompt = `You are a nutrition expert. Give 2-3 specific meal adjustments with exact quantities and macro impact.
+
 Current: Carbs ${currentMacros[0].calPercentage}% / Protein ${currentMacros[1].calPercentage}% / Fat ${currentMacros[2].calPercentage}%
 Target: Carbs ${targetMacros.carb}% / Protein ${targetMacros.protein}% / Fat ${targetMacros.fat}%
 Need: ${needs.join(', ')}
-B: ${currentMeals.breakfast.name}
-L: ${currentMeals.lunch.name}
-D: ${currentMeals.dinner.name}
+
+Meals:
+- Breakfast: ${currentMeals.breakfast.name} (ingredients: ${currentMeals.breakfast.ingredients.join(', ')})
+- Lunch: ${currentMeals.lunch.name} (ingredients: ${currentMeals.lunch.ingredients.join(', ')})
+- Dinner: ${currentMeals.dinner.name} (ingredients: ${currentMeals.dinner.ingredients.join(', ')})
 ${allergens.length > 0 ? `Avoid: ${allergens.join(', ')}` : ''}
-{"suggestions":[{"mealType":"breakfast/lunch/dinner","action":"...","impact":"..."}]}`;
+
+Rules:
+- Include exact amount (e.g. "50g", "1 scoop 30g", "2 boiled eggs")
+- Include estimated macro impact (e.g. "-11.5g carbs, -0.5g protein")
+- Only adjust ingredients already in the meal OR common add-ons
+- mealType must be lowercase: "breakfast", "lunch", or "dinner"
+
+JSON only:
+{"suggestions":[{"mealType":"breakfast","action":"Reduce banana by half (approx. 50g)","impact":"-11.5g carbs, -0.5g protein, -0.15g fat"}]}`;
 
     const result = await model.generateContent(prompt);
     const responseText = result.response.text().trim();
