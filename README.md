@@ -26,19 +26,6 @@ SmartMeal generates personalized 7-day meal plans based on fitness goals (Weight
 
 ---
 
-## GitHub Tags:
-
-`react`
-`tailwindcss-v4`
-`google-gemini`
-`fullstack`
-`meal-planning`
-`nutrition`
-`ai-optimization`
-`shadcn-ui`
-
----
-
 ## Features
 
 - 🎯 **Goal-based meal planning** — Weight Loss / General Maintenance / Active Male / Muscle Gain
