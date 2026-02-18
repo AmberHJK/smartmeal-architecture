@@ -18,6 +18,22 @@
 
 ---
 
+## Screenshots
+
+![Goal Selection](public/screenshots/setup-page.png)
+*Choose your fitness goal and dietary restrictions*
+
+![Weekly Meal Plan](public/screenshots/meal-plan.png)
+*7-day meal grid with real-time macro tracking*
+
+![Meal Details](public/screenshots/meal-card.png)
+*Full nutrition breakdown and ingredients*
+
+![AI Optimization](public/screenshots/ai-suggestions.png)
+*AI-powered ingredient adjustment suggestions*
+
+---
+
 ## Overview
 
 **AI-driven meal optimization engine** featuring mathematical macro validation and ingredient-level adjustment suggestions via Gemini 2.5 Flash.
@@ -174,6 +190,16 @@ The app includes 82 curated meals across 3 categories:
 | Dinner | 25 |
 
 Each meal includes base nutrition data (calories, carbs, protein, fat), allergen info, and serving size multipliers per goal.
+
+---
+
+## Future Improvements
+
+- [ ] **Spoonacular API integration** for detailed recipe instructions
+- [ ] **Meal swap history** to track optimization changes
+- [ ] **Export to PDF/Calendar** for meal prep planning
+- [ ] **User authentication** for saving personalized plans
+- [ ] **Nutrition database expansion** with custom meal creation
 
 ---
 
