@@ -10,6 +10,12 @@
 
 ---
 
+## Demo
+
+🔗 **Live Demo:** [smartmeal.vercel.app](https://your-actual-url.vercel.app)
+
+---
+
 ## Overview
 
 **AI-driven meal optimization engine** featuring mathematical macro validation and ingredient-level adjustment suggestions via Gemini 2.5 Flash.
