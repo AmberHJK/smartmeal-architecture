@@ -29,7 +29,7 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
       const currentMacros = calculateMacroPercentages(dailyTotal);
       const targetMacros = GOAL_MACROS[goal];
 
-      const response = await fetch('/api/optimize-meal-plan', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/optimize-meal-plan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -194,7 +194,7 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
               </div>
             </div>
             
-            <p className="text-sm text-gray-500 italic">This may take 5-10 seconds...</p>
+            <p className="text-sm text-gray-500 italic">Optimizing your nutrition plan... This might take a moment.</p>
           </div>
         </div>
       )}
