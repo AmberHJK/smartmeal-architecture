@@ -14,6 +14,8 @@
 
 🔗 **Live Demo:** [smartmeal-architecture.vercel.app](https://smartmeal-architecture.vercel.app/)
 
+> **Note:** The AI optimization uses Google Gemini API free tier (20 requests/day). If you see a quota message, clone the repo and run locally with your own API key.
+
 ---
 
 ## Overview
