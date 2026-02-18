@@ -12,7 +12,7 @@
 
 ## Demo
 
-🔗 **Live Demo:** [smartmeal.vercel.app](https://your-actual-url.vercel.app)
+🔗 **Live Demo:** [smartmeal-architecture.vercel.app](https://smartmeal-architecture.vercel.app/)
 
 ---
 
