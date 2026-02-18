@@ -88,7 +88,7 @@ AI returns: specific ingredient adjustments with macro impact
 Result displayed to user
 ```
 
-**Result:** Response time reduced from 60–75s → 10–15s with improved accuracy.
+**Result:** Response time reduced from 60–75s → 15–20s with improved accuracy.
 
 ### Error Handling
 

@@ -140,10 +140,8 @@ const SetupPage = ({ onGenerate }) => {
         {/* Generate Button */}
         <button
           onClick={handleGenerate}
-          className="w-full py-4 sm:py-5 px-6 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-lg sm:text-xl font-semibold rounded-xl shadow-lg hover:shadow-xl hover:brightness-120 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
-        >
-          <span className="font-semibold text-white">Generate Meal Plan</span>
-        </button>
+          className="w-full py-4 sm:py-5 px-6 bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-lg sm:text-xl font-semibold rounded-xl shadow-lg hover:shadow-xl hover:brightness-110 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+        >Generate Meal Plan</button>
       </div>
     </div>
   );
