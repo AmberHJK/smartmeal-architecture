@@ -69,7 +69,7 @@ const OptimizationModal = ({
                     <div className="flex flex-col sm:flex-row gap-4">
                       {/* Image */}
                       {meal.image && (
-                        <div className="w-full sm:w-2/5 h-40 sm:h-45 rounded-lg overflow-hidden bg-gray-100 shadow-md flex-shrink-0">
+                        <div className="w-full sm:w-2/5 h-40 sm:h-44 rounded-lg overflow-hidden bg-gray-100 shadow-md flex-shrink-0">
                           <img
                             src={meal.image}
                             alt={meal.name}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { toast } from "sonner"
 import { SERVING_SIZE_MULTIPLIERS, GOAL_MACROS, GOAL_LABELS, MACRO_COLORS } from '../utils/constants';
 import MealCard from '../components/MealCard';
@@ -8,21 +8,80 @@ import OptimizationModal from '../components/OptimizationModal';
 const DAYS = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'];
 const MEAL_TYPES = ['breakfast', 'lunch', 'dinner'];
 
+const LOADING_TIPS = [
+  "💡 Protein helps you feel fuller longer",
+  "🥑 Healthy fats support hormone production",
+  "🏋️ Time your carbs around workouts for energy",
+  "🍳 Eggs are one of the most complete proteins",
+  "💧 Drink water before meals to aid portion control"
+];
+
+function generateWeekPlan(allMeals) {
+  if (!allMeals || allMeals.length === 0) {
+    return {};
+  }
+
+  const plan = {};
+  const usedMeals = { breakfast: [], lunch: [], dinner: [] };
+
+  DAYS.forEach(day => {
+    plan[day] = {};
+    
+    MEAL_TYPES.forEach(type => {
+      const mealsOfType = allMeals.filter(m => m.category === type);
+      
+      if (mealsOfType.length === 0) {
+        return;
+      }
+      
+      const availableMeals = mealsOfType.filter(
+        meal => !usedMeals[type].includes(meal.id)
+      );
+      
+      const mealsToChooseFrom = availableMeals.length > 0 
+        ? availableMeals 
+        : mealsOfType;
+      
+      const randomMeal = mealsToChooseFrom[
+        Math.floor(Math.random() * mealsToChooseFrom.length)
+      ];
+      
+      plan[day][type] = randomMeal;
+      usedMeals[type].push(randomMeal.id);
+    });
+  });
+
+  return plan;
+}
+
 const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
   const [selectedMeal, setSelectedMeal] = useState(null);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [optimizationResult, setOptimizationResult] = useState(null);
   const [optimizingDay, setOptimizingDay] = useState(null);
-  const [optimizeStartTime, setOptimizeStartTime] = useState(null);
+  const [loadingStep, setLoadingStep] = useState(0);
+  const [loadingTip, setLoadingTip] = useState('');
   
-  const [weekPlan, setWeekPlan] = useState(() => {
-    return generateWeekPlan(meals);
-  });
+  const weekPlan = useMemo(() => generateWeekPlan(meals), [meals]);
+
+  useEffect(() => {
+    if (isOptimizing) {
+      setLoadingTip(LOADING_TIPS[Math.floor(Math.random() * LOADING_TIPS.length)]);
+      setLoadingStep(0);
+      
+      const timer = setInterval(() => {
+        setLoadingStep(prev => (prev < 3 ? prev + 1 : 3));
+      }, 2500);
+      
+      return () => clearInterval(timer);
+    } else {
+      setLoadingStep(0);
+    }
+  }, [isOptimizing]);
 
   const handleOptimize = async (day) => {
     setIsOptimizing(true);
     setOptimizingDay(day);
-    setOptimizeStartTime(Date.now());
     
     try {
       const dailyTotal = calculateDailyTotal(weekPlan[day]);
@@ -62,15 +121,13 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
       }
       
       // SUCCESS: Show modal
-      if (result.status === 'SUCCESS' && result.suggestions.length > 0) {
+      if (result.status === 'SUCCESS') {
         setOptimizationResult({ day, ...result });
       }
       
     } catch (error) {
-      console.error('Optimization failed:', error);
       toast.error('Network error. Please check your connection and try again.')
     } finally {
-      const elapsed = ((Date.now() - optimizeStartTime) / 1000).toFixed(1);
       setIsOptimizing(false);
       setOptimizingDay(null);
     }
@@ -126,75 +183,57 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
     ];
   };
 
-  function generateWeekPlan(allMeals) {
-    if (!allMeals || allMeals.length === 0) {
-      console.error('No meals available!');
-      return {};
-    }
-
-    const plan = {};
-    const usedMeals = { breakfast: [], lunch: [], dinner: [] };
-
-    DAYS.forEach(day => {
-      plan[day] = {};
-      
-      MEAL_TYPES.forEach(type => {
-        const mealsOfType = allMeals.filter(m => m.category === type);
-        
-        if (mealsOfType.length === 0) {
-          console.error(`No meals found for category: ${type}`);
-          return;
-        }
-        
-        const availableMeals = mealsOfType.filter(
-          meal => !usedMeals[type].includes(meal.id)
-        );
-        
-        const mealsToChooseFrom = availableMeals.length > 0 
-          ? availableMeals 
-          : mealsOfType;
-        
-        const randomMeal = mealsToChooseFrom[
-          Math.floor(Math.random() * mealsToChooseFrom.length)
-        ];
-        
-        plan[day][type] = randomMeal;
-        usedMeals[type].push(randomMeal.id);
-      });
-    });
-
-    return plan;
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-300 via-slate-300 to-teal-200">
       {/* Loading Overlay */}
       {isOptimizing && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 animate-in fade-in duration-300">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md text-center animate-in slide-in-from-bottom duration-400">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 text-center animate-in slide-in-from-bottom duration-400">
             {/* Spinner */}
             <div className="w-16 h-16 border-4 border-gray-200 border-t-emerald-500 rounded-full animate-spin mx-auto mb-6"></div>
             
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              Analyzing Your Meal Plan...
+              Optimizing Your Nutrition...
             </h3>
             
-            <div className="space-y-4 mb-6">
-              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg animate-pulse">
-                <span className="text-2xl">📊</span>
-                <span className="text-sm text-gray-700">Calculating macro percentages</span>
+            {/* Steps with Checkmarks */}
+            <div className="space-y-3 mb-6">
+              <div className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-500 ${
+                loadingStep >= 1 ? 'bg-emerald-50' : 'bg-gray-50 opacity-30'
+              }`}>
+                <span className="text-xl">{loadingStep >= 1 ? '✅' : '⏳'}</span>
+                <span className={`text-sm font-medium ${
+                  loadingStep >= 1 ? 'text-gray-700' : 'text-gray-400'
+                }`}>Analyzing macro gaps...</span>
               </div>
-              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg animate-pulse [animation-delay:300ms]">
-                <span className="text-2xl">🤖</span>
-                <span className="text-sm text-gray-700">AI analyzing {optimizingDay}</span>
+              
+              <div className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-500 ${
+                loadingStep >= 2 ? 'bg-emerald-50' : 'bg-gray-50 opacity-30'
+              }`}>
+                <span className="text-xl">{loadingStep >= 2 ? '✅' : '⏳'}</span>
+                <span className={`text-sm font-medium ${
+                  loadingStep >= 2 ? 'text-gray-700' : 'text-gray-400'
+                }`}>Generating AI suggestions...</span>
               </div>
-              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg animate-pulse [animation-delay:600ms]">
-                <span className="text-2xl">🔍</span>
-                <span className="text-sm text-gray-700">Finding optimal meal swaps</span>
+              
+              <div className={`flex items-center gap-3 p-3 rounded-lg transition-all duration-500 ${
+                loadingStep >= 3 ? 'bg-emerald-50' : 'bg-gray-50 opacity-30'
+              }`}>
+                <span className="text-xl">{loadingStep >= 3 ? '✅' : '⏳'}</span>
+                <span className={`text-sm font-medium ${
+                  loadingStep >= 3 ? 'text-gray-700' : 'text-gray-400'
+                }`}>Finalizing adjustments...</span>
               </div>
             </div>
+
+            {/* Nutrition Tip */}
+            <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200 mb-4">
+              <p className="text-sm text-emerald-700 font-medium">
+                {loadingTip}
+              </p>
+            </div>
             
-            <p className="text-sm text-gray-500 italic">Optimizing your nutrition plan... This might take a moment.</p>
+            <p className="text-xs text-gray-500 italic">This usually takes 15-20 seconds</p>
           </div>
         </div>
       )}
@@ -253,7 +292,7 @@ const MealPlanPage = ({ meals, goal, allergens, onBack }) => {
 
                 {/* Macro Bar */}
                 <div className="mb-4">
-                  <div className="flex h-4 rounded-full h-8 overflow-hidden bg-gray-200 shadow-inner">
+                  <div className="flex h-8 rounded-full overflow-hidden bg-gray-200 shadow-inner">
                     {macros.map((macro, index) => (
                       <div
                         key={index}
