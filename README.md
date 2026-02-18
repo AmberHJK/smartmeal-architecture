@@ -12,7 +12,22 @@
 
 ## Overview
 
-SmartMeal is a full-stack meal planning application that generates personalized 7-day meal plans based on fitness goals and dietary restrictions. Users can visualize daily macro breakdowns and receive AI-powered cooking adjustment suggestions to fine-tune their nutrition without changing meals entirely.
+**AI-driven meal optimization engine** featuring mathematical macro validation and ingredient-level adjustment suggestions via Gemini 2.5 Flash.
+
+SmartMeal generates personalized 7-day meal plans based on fitness goals (Weight Loss / Maintenance / Active / Muscle Gain) and dietary restrictions. Instead of simply swapping entire meals, the AI suggests specific ingredient adjustments with estimated macro impact—allowing users to fine-tune their nutrition without abandoning the meals they enjoy.
+
+---
+
+## GitHub Tags:
+
+`react`
+`tailwindcss-v4`
+`google-gemini`
+`fullstack`
+`meal-planning`
+`nutrition`
+`ai-optimization`
+`shadcn-ui`
 
 ---
 
